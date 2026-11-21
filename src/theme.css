@@ -1,0 +1,57 @@
+:root {
+  /* Backgrounds */
+  --background: #f8f7f4;
+  --foreground: #302f2b;
+
+  --card: #ffffff;
+  --card-foreground: #302f2b;
+
+  --popover: #ffffff;
+  --popover-foreground: #302f2b;
+
+  /* Brand colors */
+  --primary: #233d32;
+  --primary-foreground: #f9f8f5;
+
+  --secondary: #eae8e2;
+  --secondary-foreground: #383631;
+
+  /* Muted */
+  --muted: #eeece6;
+  --muted-foreground: #77736c;
+
+  /* Accent */
+  --accent: #ede3d5;
+  --accent-foreground: #493b2e;
+
+  /* Status */
+  --destructive: #c64f37;
+
+  /* Borders & inputs */
+  --border: #d9d6cf;
+  --input: #d3d0c9;
+  --ring: #233d32;
+
+  /* Charts */
+  --chart-1: #233d32;
+  --chart-2: #c47a48;
+  --chart-3: #b3a27c;
+  --chart-4: #526c80;
+  --chart-5: #a87a8c;
+
+  /* Sidebar */
+  --sidebar: #f2f0ea;
+  --sidebar-foreground: #302f2b;
+
+  --sidebar-primary: #233d32;
+  --sidebar-primary-foreground: #f9f8f5;
+
+  --sidebar-accent: #e8e6df;
+  --sidebar-accent-foreground: #302f2b;
+
+  --sidebar-border: #d9d6cf;
+  --sidebar-ring: #233d32;
+
+  /* Border radius */
+  --radius: 10px;
+}
