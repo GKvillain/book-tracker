@@ -1,0 +1,889 @@
+/* =========================================
+   LIBRARY PAGE
+   Book Tracking Web Application
+   Theme: Warm Minimal / Natural / Editorial
+========================================= */
+
+/* =========================================
+   1. DESIGN TOKENS
+========================================= */
+
+:root {
+  /* Backgrounds */
+  --background: #f8f7f4;
+  --foreground: #302f2b;
+
+  --card: #ffffff;
+  --card-foreground: #302f2b;
+
+  --popover: #ffffff;
+  --popover-foreground: #302f2b;
+
+  /* Brand colors */
+  --primary: #233d32;
+  --primary-foreground: #f9f8f5;
+
+  --secondary: #eae8e2;
+  --secondary-foreground: #383631;
+
+  /* Muted */
+  --muted: #eeece6;
+  --muted-foreground: #77736c;
+
+  /* Accent */
+  --accent: #ede3d5;
+  --accent-foreground: #493b2e;
+
+  /* Status */
+  --destructive: #c64f37;
+
+  /* Borders & Inputs */
+  --border: #d9d6cf;
+  --input: #d3d0c9;
+  --ring: #233d32;
+
+  /* Charts */
+  --chart-1: #233d32;
+  --chart-2: #c47a48;
+  --chart-3: #b3a27c;
+  --chart-4: #526c80;
+  --chart-5: #a87a8c;
+
+  /* Sidebar */
+  --sidebar: #f2f0ea;
+  --sidebar-foreground: #302f2b;
+
+  --sidebar-primary: #233d32;
+  --sidebar-primary-foreground: #f9f8f5;
+
+  --sidebar-accent: #e8e6df;
+  --sidebar-accent-foreground: #302f2b;
+
+  --sidebar-border: #d9d6cf;
+  --sidebar-ring: #233d32;
+
+  /* Status colors */
+  --status-reading-bg: #e2ebe4;
+  --status-reading-text: #3c6549;
+
+  --status-want-bg: #ede3d5;
+  --status-want-text: #8a6337;
+
+  --status-completed-bg: #e7e9df;
+  --status-completed-text: #65734a;
+
+  --status-paused-bg: #e8e3ed;
+  --status-paused-text: #746285;
+
+  --status-dnf-bg: #f0e3df;
+  --status-dnf-text: #995e50;
+
+  /* Radius */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Spacing */
+  --page-padding: 32px;
+  --section-gap: 24px;
+  --card-gap: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(48, 47, 43, 0.05);
+  --shadow-md: 0 4px 12px rgba(48, 47, 43, 0.06);
+
+  /* Transition */
+  --transition: 0.2s ease;
+}
+
+/* =========================================
+   2. RESET / BASE
+========================================= */
+
+.library-page,
+.library-page * {
+  box-sizing: border-box;
+}
+
+.library-page {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: inherit;
+}
+
+.library-page button,
+.library-page input,
+.library-page select {
+  font: inherit;
+}
+
+.library-page button {
+  cursor: pointer;
+}
+
+.library-page img {
+  display: block;
+  max-width: 100%;
+}
+
+/* =========================================
+   3. PAGE LAYOUT
+========================================= */
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background);
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: var(--page-padding);
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+/* =========================================
+   4. PAGE HEADER
+========================================= */
+
+.topic {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.topic-header {
+  min-width: 0;
+}
+
+.topic-header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+.topic-header p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+/* =========================================
+   5. ADD BOOK BUTTON
+========================================= */
+
+.add-book-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 11px 16px;
+
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  transition:
+    background-color var(--transition),
+    transform var(--transition),
+    opacity var(--transition);
+}
+
+.add-book-btn:hover {
+  opacity: 0.9;
+}
+
+.add-book-btn:active {
+  transform: scale(0.98);
+}
+
+/* =========================================
+   6. BOOK STATUS FILTERS
+========================================= */
+
+.book-filter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 22px;
+}
+
+.book-filter button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 14px;
+
+  background-color: var(--card);
+  color: var(--muted-foreground);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  font-size: 13px;
+  font-weight: 500;
+
+  white-space: nowrap;
+
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition);
+}
+
+.book-filter button:hover {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.book-filter button.active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+/* =========================================
+   7. LIBRARY TOOLBAR
+========================================= */
+
+.library-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* =========================================
+   8. SEARCH BAR
+========================================= */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+
+  padding: 0 12px;
+
+  background-color: var(--card);
+  color: var(--muted-foreground);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  transition: border-color var(--transition);
+}
+
+.search-bar:focus-within {
+  border-color: var(--ring);
+}
+
+.search-bar svg {
+  flex-shrink: 0;
+}
+
+.search-bar input {
+  width: 100%;
+  min-width: 0;
+
+  padding: 11px 0;
+
+  background: transparent;
+  color: var(--foreground);
+
+  border: none;
+  outline: none;
+
+  font-size: 14px;
+}
+
+.search-bar input::placeholder {
+  color: var(--muted-foreground);
+  opacity: 0.8;
+}
+
+/* =========================================
+   9. TOOLBAR CONTROLS
+========================================= */
+
+.toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Select Dropdown */
+
+.toolbar-controls select {
+  min-width: 0;
+  max-width: 100%;
+
+  padding: 10px 12px;
+
+  background-color: var(--card);
+  color: var(--foreground);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  font-size: 13px;
+
+  outline: none;
+  cursor: pointer;
+
+  transition: border-color var(--transition);
+}
+
+.toolbar-controls select:hover {
+  border-color: var(--input);
+}
+
+.toolbar-controls select:focus {
+  border-color: var(--ring);
+}
+
+/* =========================================
+   10. GRID / LIST VIEW TOGGLE
+========================================= */
+
+.view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  padding: 3px;
+
+  background-color: var(--card);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.view-toggle button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 32px;
+
+  background-color: transparent;
+  color: var(--muted-foreground);
+
+  border: none;
+  border-radius: var(--radius-sm);
+
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.view-toggle button:hover {
+  background-color: var(--secondary);
+}
+
+.view-toggle button.active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.view-toggle button svg {
+  flex-shrink: 0;
+}
+
+/* =========================================
+   11. BOOK COUNT
+========================================= */
+
+.book-count {
+  margin-bottom: 16px;
+
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+
+/* =========================================
+   12. BOOK CONTAINER - GRID VIEW
+========================================= */
+
+.book-container.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+
+  gap: var(--card-gap);
+  width: 100%;
+}
+
+/* =========================================
+   13. BOOK CARD - BASE
+========================================= */
+
+.book-card {
+  min-width: 0;
+  color: var(--card-foreground);
+}
+
+.book-info {
+  min-width: 0;
+}
+
+.book-card h3 {
+  margin: 8px 0 5px;
+
+  color: var(--card-foreground);
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.book-card p {
+  line-height: 1.5;
+}
+
+/* =========================================
+   14. BOOK COVER - GRID VIEW
+========================================= */
+
+.book-container.grid .book-cover {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+
+  object-fit: cover;
+
+  margin-bottom: 12px;
+
+  background-color: var(--muted);
+
+  border-radius: var(--radius-lg);
+}
+
+/* =========================================
+   15. BOOK AUTHOR
+========================================= */
+
+.book-author {
+  margin-bottom: 8px;
+
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+
+/* =========================================
+   16. BOOK GENRE
+========================================= */
+
+.book-genre {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 12px;
+  padding: 5px 8px;
+
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+
+  border-radius: var(--radius-sm);
+
+  font-size: 12px;
+}
+
+/* =========================================
+   17. BOOK STATUS BADGES
+========================================= */
+
+.book-status {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 5px 8px;
+
+  border-radius: var(--radius-sm);
+
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+
+  font-size: 11px;
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+.book-status[data-status="กำลังอ่าน"] {
+  background-color: var(--status-reading-bg);
+  color: var(--status-reading-text);
+}
+
+.book-status[data-status="อยากอ่าน"] {
+  background-color: var(--status-want-bg);
+  color: var(--status-want-text);
+}
+
+.book-status[data-status="อ่านจบแล้ว"] {
+  background-color: var(--status-completed-bg);
+  color: var(--status-completed-text);
+}
+
+.book-status[data-status="พักไว้"] {
+  background-color: var(--status-paused-bg);
+  color: var(--status-paused-text);
+}
+
+.book-status[data-status="อ่านไม่จบ"] {
+  background-color: var(--status-dnf-bg);
+  color: var(--status-dnf-text);
+}
+
+/* =========================================
+   18. READING PROGRESS
+========================================= */
+
+.progress-section {
+  margin-top: 4px;
+}
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin-bottom: 6px;
+
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+/* Progress Track */
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+
+  background-color: var(--secondary);
+
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+/* Progress Fill */
+
+.progress-fill {
+  height: 100%;
+
+  background-color: var(--primary);
+
+  border-radius: 999px;
+
+  transition: width 0.3s ease;
+}
+
+/* =========================================
+   19. BOOK RATING
+========================================= */
+
+.book-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-top: 10px;
+
+  color: var(--chart-2);
+  font-size: 12px;
+}
+
+.book-rating svg {
+  flex-shrink: 0;
+}
+
+/* =========================================
+   20. BOOK CONTAINER - LIST VIEW
+========================================= */
+
+.book-container.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 100%;
+}
+
+/* List Card */
+
+.book-container.list .book-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 16px;
+
+  background-color: var(--card);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.book-container.list .book-card:hover {
+  background-color: var(--popover);
+  border-color: var(--input);
+}
+
+/* List Cover */
+
+.book-container.list .book-cover {
+  width: 100px;
+  height: 140px;
+
+  object-fit: cover;
+
+  flex-shrink: 0;
+
+  background-color: var(--muted);
+
+  border-radius: var(--radius-md);
+}
+
+/* List Book Info */
+
+.book-container.list .book-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.book-container.list .book-info h3 {
+  margin-top: 8px;
+}
+
+.book-container.list .progress-section {
+  max-width: 360px;
+}
+
+/* =========================================
+   21. EMPTY STATE
+========================================= */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  grid-column: 1 / -1;
+
+  min-height: 240px;
+  padding: 40px 20px;
+
+  text-align: center;
+
+  color: var(--muted-foreground);
+}
+
+.empty-state h3 {
+  margin-bottom: 8px;
+
+  color: var(--foreground);
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.empty-state p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   22. RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+  .main-content {
+    padding: 24px;
+  }
+
+  .library-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-bar {
+    max-width: none;
+  }
+
+  .toolbar-controls {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .toolbar-controls select {
+    flex: 1;
+  }
+
+  .book-container.grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  }
+}
+
+/* =========================================
+   23. RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .main-content {
+    padding: 20px 16px;
+  }
+
+  /* Header */
+
+  .topic {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .topic-header h1 {
+    font-size: 24px;
+  }
+
+  .topic-header p {
+    font-size: 13px;
+  }
+
+  .add-book-btn {
+    width: 100%;
+  }
+
+  /* Filters */
+
+  .book-filter {
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .book-filter button {
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+
+  /* Toolbar */
+
+  .toolbar-controls {
+    gap: 8px;
+  }
+
+  .toolbar-controls select {
+    padding: 9px 8px;
+    font-size: 12px;
+  }
+
+  /* Grid */
+
+  .book-container.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .book-container.grid .book-cover {
+    border-radius: var(--radius-md);
+  }
+
+  .book-container.grid .book-card h3 {
+    font-size: 14px;
+  }
+
+  .book-author {
+    font-size: 12px;
+  }
+
+  /* List */
+
+  .book-container.list {
+    gap: 12px;
+  }
+
+  .book-container.list .book-card {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .book-container.list .book-cover {
+    width: 80px;
+    height: 112px;
+  }
+
+  .book-container.list .book-card h3 {
+    font-size: 14px;
+  }
+
+  .book-container.list .book-genre {
+    font-size: 11px;
+  }
+
+  .book-container.list .progress-section {
+    max-width: none;
+  }
+}
+
+/* =========================================
+   24. RESPONSIVE - SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .main-content {
+    padding: 16px 12px;
+  }
+
+  .topic-header h1 {
+    font-size: 22px;
+  }
+
+  .book-container.grid {
+    gap: 12px;
+  }
+
+  .book-container.list .book-card {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .book-container.list .book-cover {
+    width: 68px;
+    height: 96px;
+  }
+}
