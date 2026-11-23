@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sidebar } from "../components/Sidebar";
 import "./Booktrack.css";
+import { initialBooks } from "../data/books";
 
 const mockNotes = [
   {
@@ -58,44 +59,8 @@ const mockNotes = [
   },
 ];
 
-const books = [
-  {
-    id: 1,
-    title: "Atomic Habits",
-    author: "James Clear",
-    cover: "https://placehold.co/180x260",
-    status: "อ่านจบแล้ว",
-    genre: "พัฒนาตนเอง",
-    progress: 100,
-    rating: 5,
-    addedAt: "2026-11-18",
-  },
-  {
-    id: 2,
-    title: "Deep Work",
-    author: "Cal Newport",
-    cover: "https://placehold.co/180x260",
-    status: "กำลังอ่าน",
-    genre: "พัฒนาตนเอง",
-    progress: 45,
-    rating: 4,
-    addedAt: "2026-11-20",
-  },
-  {
-    id: 3,
-    title: "The Psychology of Money",
-    author: "Morgan Housel",
-    cover: "https://placehold.co/180x260",
-    status: "อยากอ่าน",
-    genre: "ธุรกิจ",
-    progress: 0,
-    rating: 0,
-    addedAt: "2026-11-21",
-  },
-];
-
 const noteCategories = ["บันทึก", "คำคม", "ข้อคิด"];
-
+const books = initialBooks;
 const filters = ["ทั้งหมด", ...noteCategories];
 
 export function Booktrack() {

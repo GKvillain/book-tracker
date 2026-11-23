@@ -2,43 +2,9 @@ import { Sidebar } from "../components/Sidebar";
 import "./Library.css";
 import { useState } from "react";
 import { Search, LayoutGrid, List, Plus, Star } from "lucide-react";
+import { initialBooks } from "../data/books";
 
-const books = [
-  {
-    id: 1,
-    title: "The Psychology of Money",
-    author: "Morgan Housel",
-    cover: "https://placehold.co/180x260",
-    status: "อยากอ่าน",
-    genre: "ธุรกิจ",
-    progress: 0,
-    rating: 0,
-    addedAt: "2026-11-21",
-  },
-  {
-    id: 2,
-    title: "Rich Dad Poor Dad",
-    author: "Robert Kiyosaki",
-    cover: "https://placehold.co/180x260",
-    status: "อยากอ่าน",
-    genre: "การเงิน",
-    progress: 0,
-    rating: 0,
-    addedAt: "2026-11-20",
-  },
-  {
-    id: 3,
-    title: "The Art of Thinking Clearly",
-    author: "Rolf Dobelli",
-    cover: "https://placehold.co/180x260",
-    status: "อยากอ่าน",
-    genre: "จิตวิทยา",
-    progress: 0,
-    rating: 0,
-    addedAt: "2026-11-18",
-  },
-];
-
+const books = initialBooks;
 const categories = [
   "ทุกประเภท",
   "นิยาย",

@@ -2,43 +2,12 @@ import { useState } from "react";
 import { Target, BookOpen, Flag, CalendarDays } from "lucide-react";
 import { Sidebar } from "../components/Sidebar";
 import "./ReadingGoal.css";
-
-const completedBooks = [
-  {
-    id: 6,
-    title: "Atomic Habits",
-    date: "22 ก.ย. 2569",
-    cover: "https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg",
-  },
-  {
-    id: 5,
-    title: "Deep Work",
-    date: "20 ก.ค. 2569",
-    cover: "https://covers.openlibrary.org/b/isbn/9781455586691-L.jpg",
-  },
-  {
-    id: 4,
-    title: "The Psychology of Money",
-    date: "1 มิ.ย. 2569",
-    cover: "https://covers.openlibrary.org/b/isbn/9780857197689-L.jpg",
-  },
-  {
-    id: 3,
-    title: "Ikigai",
-    date: "3 เม.ย. 2569",
-    cover: "https://covers.openlibrary.org/b/isbn/9781786330895-L.jpg",
-  },
-  {
-    id: 2,
-    title: "Rich Dad Poor Dad",
-    date: "5 มี.ค. 2569",
-    cover: "https://covers.openlibrary.org/b/isbn/9781612680194-L.jpg",
-  },
-];
+import { initialBooks } from "../data/books";
 
 const currentYear = 2026;
 const completed = 6;
 const currentMonth = 11; // November
+const books = initialBooks;
 
 export function ReadingGoal() {
   const [goal, setGoal] = useState(24);
@@ -199,11 +168,11 @@ export function ReadingGoal() {
         <section className="completed-books-section">
           <div className="section-header">
             <h2>หนังสือที่อ่านจบแล้ว</h2>
-            <span>{completedBooks.length} เล่ม</span>
+            <span>{books.length} เล่ม</span>
           </div>
 
           <div className="completed-books-grid">
-            {completedBooks.map((book) => (
+            {books.map((book) => (
               <div className="completed-book-card" key={book.id}>
                 <img
                   src={book.cover}

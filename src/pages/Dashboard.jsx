@@ -19,7 +19,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import "./Dashboard.css";
-
+import { initialBooks } from "../data/books";
 const monthlyData = [
   { month: "ม.ค.", books: 0 },
   { month: "ก.พ.", books: 0 },
@@ -33,103 +33,6 @@ const monthlyData = [
   { month: "ต.ค.", books: 0 },
   { month: "พ.ย.", books: 1 },
   { month: "ธ.ค.", books: 0 },
-];
-
-const currentlyReading = [
-  {
-    id: 1,
-    title: "Dune",
-    author: "Frank Herbert",
-    cover: "https://covers.openlibrary.org/b/isbn/9780441172719-L.jpg",
-    currentPage: 412,
-    totalPages: 688,
-    progress: 60,
-  },
-  {
-    id: 2,
-    title: "Thinking, Fast and Slow",
-    author: "Daniel Kahneman",
-    cover: "https://covers.openlibrary.org/b/isbn/9780374533557-L.jpg",
-    currentPage: 180,
-    totalPages: 499,
-    progress: 36,
-  },
-];
-
-const recentActivity = [
-  {
-    id: 1,
-    title: "Dune",
-    cover: "https://covers.openlibrary.org/b/isbn/9780441172719-M.jpg",
-    progress: 60,
-    date: "19 พ.ย.",
-  },
-  {
-    id: 2,
-    title: "Thinking, Fast and Slow",
-    cover: "https://covers.openlibrary.org/b/isbn/9780374533557-M.jpg",
-    progress: 36,
-    date: "17 พ.ย.",
-  },
-  {
-    id: 3,
-    title: "Klara and the Sun",
-    cover: "https://covers.openlibrary.org/b/isbn/9780593318171-M.jpg",
-    progress: 100,
-    date: "22 ก.ย.",
-  },
-  {
-    id: 4,
-    title: "ด้วยรักและผูกพัน",
-    cover: "https://placehold.co/120x170?text=Book",
-    progress: 41,
-    date: "15 ส.ค.",
-  },
-  {
-    id: 5,
-    title: "The Psychology of Money",
-    cover: "https://covers.openlibrary.org/b/isbn/9780857197689-M.jpg",
-    progress: 100,
-    date: "20 ก.ค.",
-  },
-];
-
-const recentlyAdded = [
-  {
-    id: 1,
-    title: "The Midnight Library",
-    author: "Matt Haig",
-    cover: "https://covers.openlibrary.org/b/isbn/9780525559474-M.jpg",
-    status: "อยากอ่าน",
-  },
-  {
-    id: 2,
-    title: "1984",
-    author: "George Orwell",
-    cover: "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg",
-    status: "อยากอ่าน",
-  },
-  {
-    id: 3,
-    title: "Thinking, Fast and Slow",
-    author: "Daniel Kahneman",
-    cover: "https://covers.openlibrary.org/b/isbn/9780374533557-M.jpg",
-    status: "กำลังอ่าน",
-  },
-  {
-    id: 4,
-    title: "Dune",
-    author: "Frank Herbert",
-    cover: "https://covers.openlibrary.org/b/isbn/9780441172719-M.jpg",
-    status: "กำลังอ่าน",
-  },
-  {
-    id: 5,
-    title: "Klara and the Sun",
-    author: "Kazuo Ishiguro",
-    cover: "https://covers.openlibrary.org/b/isbn/9780593318171-M.jpg",
-    status: "อ่านจบแล้ว",
-  },
 ];
 
 const stats = [
@@ -150,6 +53,7 @@ const stats = [
     icon: Clock3,
   },
 ];
+const books = initialBooks;
 
 function StatCard({ label, value, icon: Icon, suffix }) {
   return (
@@ -285,7 +189,7 @@ export function Dashboard() {
           </div>
 
           <div className="currently-reading-grid">
-            {currentlyReading.map((book) => (
+            {books.map((book) => (
               <article className="reading-book-card" key={book.id}>
                 <img src={book.cover} alt={book.title} />
 
@@ -406,7 +310,7 @@ export function Dashboard() {
           </div>
 
           <div className="recent-activity-list">
-            {recentActivity.map((book) => (
+            {books.map((book) => (
               <article className="recent-activity-item" key={book.id}>
                 <img src={book.cover} alt={book.title} />
 
@@ -444,7 +348,7 @@ export function Dashboard() {
           </div>
 
           <div className="recently-added-grid">
-            {recentlyAdded.map((book) => (
+            {books.map((book) => (
               <article className="recently-added-card" key={book.id}>
                 <div className="recently-added-cover">
                   <img src={book.cover} alt={book.title} />

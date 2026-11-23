@@ -2,7 +2,7 @@ import { Sidebar } from "../components/Sidebar";
 import "./Library.css";
 import { useState } from "react";
 import { Search, LayoutGrid, List, Plus, Star } from "lucide-react";
-
+import { initialBooks } from "../data/books";
 const filters = [
   "ทั้งหมด",
   "กำลังอ่าน",
@@ -10,42 +10,6 @@ const filters = [
   "อ่านจบแล้ว",
   "พักไว้",
   "อ่านไม่จบ",
-];
-
-const books = [
-  {
-    id: 1,
-    title: "Atomic Habits",
-    author: "James Clear",
-    cover: "https://placehold.co/180x260",
-    status: "อ่านจบแล้ว",
-    genre: "พัฒนาตนเอง",
-    progress: 100,
-    rating: 5,
-    addedAt: "2026-11-18",
-  },
-  {
-    id: 2,
-    title: "Deep Work",
-    author: "Cal Newport",
-    cover: "https://placehold.co/180x260",
-    status: "กำลังอ่าน",
-    genre: "พัฒนาตนเอง",
-    progress: 45,
-    rating: 4,
-    addedAt: "2026-11-20",
-  },
-  {
-    id: 3,
-    title: "The Psychology of Money",
-    author: "Morgan Housel",
-    cover: "https://placehold.co/180x260",
-    status: "อยากอ่าน",
-    genre: "ธุรกิจ",
-    progress: 0,
-    rating: 0,
-    addedAt: "2026-11-21",
-  },
 ];
 
 const categories = [
@@ -59,7 +23,7 @@ const categories = [
   "ประวัติศาสตร์",
   "ปรัชญา",
 ];
-
+const books = initialBooks;
 export function Library() {
   const [activeFilter, setActiveFilter] = useState("ทั้งหมด");
   const [searchQuery, setSearchQuery] = useState("");
