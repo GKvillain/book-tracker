@@ -1,0 +1,515 @@
+/* =========================================
+   BOOKTRACK PAGE
+========================================= */
+
+.booktrack-page {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.topic-header {
+  margin-bottom: 28px;
+}
+
+.topic-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--foreground);
+}
+
+.topic-header p {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+/* =========================================
+   NOTE FORM
+========================================= */
+
+.note {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  width: 100%;
+  max-width: 900px;
+
+  padding: 28px;
+
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.note h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* =========================================
+   FORM GROUPS
+========================================= */
+
+.note .section-note {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.note .section-note > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 8px;
+}
+
+.note label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+/* =========================================
+   INPUT & SELECT
+========================================= */
+
+.note input,
+.note select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+
+  background-color: var(--background);
+  color: var(--foreground);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  font-size: 14px;
+  font-family: inherit;
+
+  outline: none;
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.note input:focus,
+.note select:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px rgba(35, 61, 50, 0.08);
+}
+
+.note input::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.note textarea {
+  width: 100%;
+  min-height: 200px;
+
+  padding: 16px;
+  resize: vertical;
+
+  background-color: var(--background);
+  color: var(--foreground);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.8;
+
+  outline: none;
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.note textarea:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px rgba(35, 61, 50, 0.08);
+}
+
+.note textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* =========================================
+   ADD NOTE BUTTON
+========================================= */
+
+.note button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  align-self: flex-end;
+
+  padding: 11px 20px;
+
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition),
+    transform var(--transition),
+    opacity var(--transition);
+}
+
+.note button:hover {
+  opacity: 0.9;
+}
+
+.note button:active {
+  transform: scale(0.98);
+}
+
+/* =========================================
+   NOTES SECTION
+========================================= */
+
+.notes-section {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 36px;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.notes-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.notes-header > span {
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+
+/* =========================================
+   CATEGORY FILTER
+========================================= */
+
+.category-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-bottom: 22px;
+}
+
+.category-filter button {
+  padding: 8px 16px;
+
+  background: var(--card);
+  color: var(--muted-foreground);
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition: all var(--transition);
+}
+
+.category-filter button:hover {
+  background: var(--secondary);
+  color: var(--foreground);
+}
+
+.category-filter button.active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+/* =========================================
+   NOTES LIST
+========================================= */
+
+.notes-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* =========================================
+   NOTE CARD
+========================================= */
+
+.card-note {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  padding: 22px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.card-note:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, var(--shadow-sm));
+}
+
+.card-note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.card-note-header > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-note-header h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+  line-height: 1.5;
+}
+
+/* =========================================
+   NOTE BADGE
+========================================= */
+
+.note-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.note-badge.บันทึก {
+  background: rgba(79, 130, 110, 0.12);
+  color: var(--primary);
+}
+
+.note-badge.คำคม {
+  background: rgba(211, 167, 84, 0.15);
+  color: #b18432;
+}
+
+.note-badge.ข้อคิด {
+  background: rgba(125, 109, 174, 0.12);
+  color: #8270b1;
+}
+
+/* =========================================
+   PAGE & DATE
+========================================= */
+
+.note-page {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+.note-date {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+
+/* =========================================
+   NOTE CONTENT
+========================================= */
+
+.note-content {
+  color: var(--foreground);
+  font-size: 14px;
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.delete-note {
+  flex-shrink: 0;
+
+  padding: 7px 12px;
+
+  background: transparent;
+  color: var(--muted-foreground);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  font-size: 12px;
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition: all var(--transition);
+}
+
+.delete-note:hover {
+  color: #dc5c5c;
+  border-color: #dc5c5c;
+  background: rgba(220, 92, 92, 0.06);
+}
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-notes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 180px;
+  padding: 32px 20px;
+
+  text-align: center;
+
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.empty-notes h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.empty-notes p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 24px;
+  }
+
+  .note {
+    padding: 22px;
+  }
+
+  .topic-header h1 {
+    font-size: 24px;
+  }
+
+  .note .section-note {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .main-content {
+    padding: 20px 16px;
+  }
+
+  .topic-header h1 {
+    font-size: 22px;
+  }
+
+  .topic-header p {
+    font-size: 13px;
+  }
+
+  .note {
+    padding: 18px;
+    gap: 18px;
+  }
+
+  .note h4 {
+    font-size: 16px;
+  }
+
+  .note .section-note {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .note textarea {
+    min-height: 160px;
+  }
+
+  .note button {
+    width: 100%;
+  }
+
+  .card-note {
+    padding: 18px;
+  }
+
+  .notes-header h3 {
+    font-size: 18px;
+  }
+}

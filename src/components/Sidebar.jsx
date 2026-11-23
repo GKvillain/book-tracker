@@ -9,6 +9,7 @@ import {
   Plus,
   Quote,
 } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 import "./Sidebar.css";
 
@@ -36,35 +37,35 @@ export function Sidebar() {
       {/* Navigation */}
       <div className="inside-sidebar">
         <nav className="sidebar-nav">
-          <a href="/dashboard" className="active">
+          <NavLink to="/">
             <LayoutDashboard size={18} />
             <span>ภาพรวม</span>
-          </a>
+          </NavLink>
 
-          <a href="/library">
+          <NavLink to="/library">
             <Library size={18} />
-            <span>ชั้นหนังสือ</span>
-          </a>
+            <span>คลังหนังสือ</span>
+          </NavLink>
 
-          <a href="/wishlist">
+          <NavLink to="/wishlist">
             <Heart size={18} />
             <span>อยากอ่าน</span>
-          </a>
+          </NavLink>
 
-          <a href="/booktrack">
+          <NavLink to="/booktrack">
             <BookMarked size={18} />
             <span>บันทึกการอ่าน</span>
-          </a>
+          </NavLink>
 
-          <a href="/statistics">
+          <NavLink to="/statistics">
             <ChartNoAxesCombined size={18} />
             <span>สถิติ</span>
-          </a>
+          </NavLink>
 
-          <a href="/target">
+          <NavLink to="/readinggoal">
             <Target size={18} />
             <span>เป้าหมาย</span>
-          </a>
+          </NavLink>
         </nav>
 
         {/* Quote */}

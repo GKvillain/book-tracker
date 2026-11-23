@@ -1,0 +1,208 @@
+import { Sidebar } from "../components/Sidebar";
+import "./Library.css";
+import { useState } from "react";
+import { Search, LayoutGrid, List, Plus, Star } from "lucide-react";
+
+const books = [
+  {
+    id: 1,
+    title: "The Psychology of Money",
+    author: "Morgan Housel",
+    cover: "https://placehold.co/180x260",
+    status: "อยากอ่าน",
+    genre: "ธุรกิจ",
+    progress: 0,
+    rating: 0,
+    addedAt: "2026-11-21",
+  },
+  {
+    id: 2,
+    title: "Rich Dad Poor Dad",
+    author: "Robert Kiyosaki",
+    cover: "https://placehold.co/180x260",
+    status: "อยากอ่าน",
+    genre: "การเงิน",
+    progress: 0,
+    rating: 0,
+    addedAt: "2026-11-20",
+  },
+  {
+    id: 3,
+    title: "The Art of Thinking Clearly",
+    author: "Rolf Dobelli",
+    cover: "https://placehold.co/180x260",
+    status: "อยากอ่าน",
+    genre: "จิตวิทยา",
+    progress: 0,
+    rating: 0,
+    addedAt: "2026-11-18",
+  },
+];
+
+const categories = [
+  "ทุกประเภท",
+  "นิยาย",
+  "นิยายวิทยาศาสตร์",
+  "แฟนตาซี",
+  "พัฒนาตนเอง",
+  "ธุรกิจ",
+  "การเงิน",
+  "จิตวิทยา",
+  "ประวัติศาสตร์",
+  "ปรัชญา",
+];
+
+export function Wishlist() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [category, setCategory] = useState("ทุกประเภท");
+  const [sortBy, setSortBy] = useState("recentlyAdded");
+  const [viewMode, setViewMode] = useState("grid");
+
+  const filteredBooks = books
+    .filter((book) => {
+      const matchesSearch =
+        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchesCategory =
+        category === "ทุกประเภท" || book.genre === category;
+
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "title":
+          return a.title.localeCompare(b.title);
+
+        case "highestRating":
+          return b.rating - a.rating;
+
+        case "highestProgress":
+          return b.progress - a.progress;
+
+        case "recentlyAdded":
+        default:
+          return new Date(b.addedAt) - new Date(a.addedAt);
+      }
+    });
+
+  return (
+    <div className="layout">
+      <Sidebar />
+
+      <main className="main-content">
+        {/* Page Header */}
+        <div className="topic">
+          <div className="topic-header">
+            <h1>รายการหนังสือที่อยากอ่าน</h1>
+            <p>รวบรวมหนังสือที่คุณสนใจและวางแผนอ่านในอนาคต</p>
+          </div>
+
+          <button className="add-book-btn">
+            <Plus size={18} />
+            เพิ่มหนังสือ
+          </button>
+        </div>
+
+        {/* Toolbar */}
+        <div className="library-toolbar">
+          <div className="search-bar">
+            <Search size={18} strokeWidth={1.8} />
+
+            <input
+              type="text"
+              placeholder="ค้นหาชื่อหนังสือหรือผู้เขียน..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          <div className="toolbar-controls">
+            {/* Category */}
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              {categories.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+
+            {/* Sorting */}
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+              <option value="recentlyAdded">วันที่เพิ่มล่าสุด</option>
+              <option value="title">ชื่อหนังสือ A-Z</option>
+              <option value="highestRating">คะแนนสูงสุด</option>
+              <option value="highestProgress">ความคืบหน้ามากสุด</option>
+            </select>
+
+            {/* View Toggle */}
+            <div className="view-toggle">
+              <button
+                className={viewMode === "grid" ? "active" : ""}
+                onClick={() => setViewMode("grid")}
+                title="Grid View"
+              >
+                <LayoutGrid size={18} />
+              </button>
+
+              <button
+                className={viewMode === "list" ? "active" : ""}
+                onClick={() => setViewMode("list")}
+                title="List View"
+              >
+                <List size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Book Count */}
+        <p className="book-count">
+          หนังสือที่อยากอ่านทั้งหมด {filteredBooks.length} เล่ม
+        </p>
+
+        {/* Book Container */}
+        <div className={`book-container ${viewMode}`}>
+          {filteredBooks.length > 0 ? (
+            filteredBooks.map((book) => (
+              <div className="book-card" key={book.id}>
+                <img
+                  className="book-cover"
+                  src={book.cover}
+                  alt={`ปกหนังสือ ${book.title}`}
+                />
+
+                <div className="book-info">
+                  <span className="book-status" data-status={book.status}>
+                    {book.status}
+                  </span>
+
+                  <h3>{book.title}</h3>
+                  <p className="book-author">{book.author}</p>
+
+                  <p className="book-genre">{book.genre}</p>
+
+                  {/* Rating */}
+                  {book.rating > 0 && (
+                    <div className="book-rating">
+                      <Star size={15} fill="currentColor" />
+                      <span>{book.rating}/5</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="empty-state">
+              <h3>ไม่พบหนังสือ</h3>
+              <p>ลองเปลี่ยนคำค้นหา หรือเลือกประเภทหนังสืออื่น</p>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}

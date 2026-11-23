@@ -122,3 +122,8 @@
   margin-top: 8px;
   text-align: right;
 }
+
+.sidebar-nav a.active {
+  background-color: var(--sidebar-accent);
+  color: var(--sidebar-accent-foreground);
+}

@@ -1,0 +1,460 @@
+/* =========================================
+   STATISTICS PAGE
+========================================= */
+
+.statistics-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  color: var(--foreground);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.statistics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.statistics-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.statistics-header p {
+  color: var(--muted-foreground);
+  font-size: 14px;
+}
+
+.year-select select {
+  padding: 10px 14px;
+  min-width: 130px;
+
+  background: var(--card);
+  color: var(--foreground);
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+/* =========================================
+   OVERVIEW GRID
+========================================= */
+
+.stats-overview,
+.session-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* =========================================
+   STAT CARD
+========================================= */
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  min-width: 0;
+  padding: 22px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  background: rgba(120, 145, 127, 0.12);
+  color: #78917f;
+
+  border-radius: 10px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--muted-foreground);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.stat-subtitle {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+
+/* =========================================
+   MAIN CHART GRID
+========================================= */
+
+.statistics-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+/* =========================================
+   CHART CARD
+========================================= */
+
+.statistics-card {
+  min-width: 0;
+  padding: 24px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+}
+
+.statistics-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.statistics-card-header h3,
+.session-section-header h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.statistics-card-header p,
+.session-section-header p {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 280px;
+}
+
+.genre-chart-wrapper {
+  width: 100%;
+  height: 240px;
+}
+
+/* =========================================
+   GENRE LEGEND
+========================================= */
+
+.genre-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.genre-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.genre-dot {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.genre-name {
+  font-size: 13px;
+  color: var(--foreground);
+  flex: 1;
+}
+
+.genre-count {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+/* =========================================
+   READING GOAL
+========================================= */
+
+.goal-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.goal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+
+  padding: 16px 0;
+}
+
+/* Circular Progress */
+
+.goal-circle {
+  width: 180px;
+  height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    #78917f var(--progress),
+    var(--border) var(--progress)
+  );
+}
+
+.goal-circle-inner {
+  width: 150px;
+  height: 150px;
+
+  background: var(--card);
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.goal-circle-inner strong {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.goal-circle-inner span {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+/* Goal Details */
+
+.goal-details {
+  width: 100%;
+}
+
+.goal-details h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.goal-details h2 span {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
+.goal-details > p {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-bottom: 18px;
+}
+
+.goal-progress-track {
+  height: 8px;
+  width: 100%;
+
+  overflow: hidden;
+
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.goal-progress-fill {
+  height: 100%;
+  width: 25%;
+
+  background: #78917f;
+  border-radius: 999px;
+}
+
+.goal-progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+/* =========================================
+   SESSION STATISTICS
+========================================= */
+
+.session-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.session-section-header h3 {
+  margin-bottom: 6px;
+}
+
+.session-stats-grid .stat-card {
+  height: 100%;
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+  .stats-overview,
+  .session-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .statistics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .genre-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    column-gap: 20px;
+  }
+
+  .genre-card .statistics-card-header {
+    grid-column: 1 / -1;
+  }
+
+  .genre-chart-wrapper {
+    height: 260px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+  .statistics-page {
+    gap: 22px;
+  }
+
+  .statistics-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .statistics-header h1 {
+    font-size: 23px;
+  }
+
+  .statistics-header p {
+    font-size: 13px;
+  }
+
+  .stats-overview,
+  .session-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .stat-value {
+    font-size: 19px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+
+  .stat-subtitle {
+    font-size: 11px;
+  }
+
+  .statistics-card {
+    padding: 18px;
+  }
+
+  .statistics-card-header h3 {
+    font-size: 15px;
+  }
+
+  .chart-wrapper {
+    height: 250px;
+  }
+
+  .genre-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .genre-chart-wrapper {
+    height: 220px;
+  }
+
+  .goal-circle {
+    width: 155px;
+    height: 155px;
+  }
+
+  .goal-circle-inner {
+    width: 130px;
+    height: 130px;
+  }
+
+  .goal-circle-inner strong {
+    font-size: 28px;
+  }
+
+  .goal-details h2 {
+    font-size: 22px;
+  }
+}
