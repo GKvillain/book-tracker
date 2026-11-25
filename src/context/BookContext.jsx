@@ -1,42 +1,13 @@
-import { createContext, useState } from "react";
-import { initialBooks } from "../data/books";
+import { createContext, useContext } from "react";
 
-const BookContext = createContext(null);
+export const BookContext = createContext(null);
 
-export function BookProvider({ children }) {
-  const [books, setBooks] = useState(initialBooks);
+export function useBooks() {
+  const context = useContext(BookContext);
 
-  // Add book
-  function addBook(newBook) {
-    setBooks((prevBooks) => [
-      ...prevBooks,
-      {
-        ...newBook,
-        id: Date.now(),
-      },
-    ]);
+  if (context === null) {
+    throw new Error("useBooks must be used within BookProvider");
   }
 
-  // Update book
-  function updateBook(bookId, updatedData) {
-    setBooks((prevBooks) =>
-      prevBooks.map((book) =>
-        book.id === bookId ? { ...book, ...updatedData } : book,
-      ),
-    );
-  }
-
-  // Delete book
-  function deleteBook(bookId) {
-    setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
-  }
-
-  const value = {
-    books,
-    addBook,
-    updateBook,
-    deleteBook,
-  };
-
-  return <BookContext.Provider value={value}>{children}</BookContext.Provider>;
+  return context;
 }
