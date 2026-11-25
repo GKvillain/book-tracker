@@ -1,9 +1,11 @@
-import { Sidebar } from "../components/Sidebar";
-import "./Library.css";
 import { useState } from "react";
-import { Search, LayoutGrid, List, Plus, Star } from "lucide-react";
-import { useBooks } from "../context/BookContext";
+import { Search, LayoutGrid, List, Plus, Star, Pencil } from "lucide-react";
+
+import { Sidebar } from "../components/Sidebar";
 import { AddBookModal } from "../components/AddBookModal";
+import { useBooks } from "../context/BookContext";
+
+import "./Library.css";
 
 const filters = [
   "ทั้งหมด",
@@ -36,8 +38,8 @@ function calculateProgress(book) {
 }
 
 export function Library() {
-  // รับข้อมูลหนังสือจาก BookContext
-  const { books, addBook } = useBooks();
+  // รับข้อมูลและ Functions จาก BookContext
+  const { books, addBook, updateBook } = useBooks();
 
   // UI States
   const [activeFilter, setActiveFilter] = useState("ทั้งหมด");
@@ -45,7 +47,36 @@ export function Library() {
   const [category, setCategory] = useState("ทุกประเภท");
   const [sortBy, setSortBy] = useState("recentlyAdded");
   const [viewMode, setViewMode] = useState("grid");
+
+  // Add Modal State
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  // Edit Modal State
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  // CREATE
+  function handleAddBook(bookData) {
+    addBook(bookData);
+    setIsAddModalOpen(false);
+  }
+
+  // OPEN EDIT MODAL
+  function handleOpenEdit(book) {
+    setSelectedBook(book);
+  }
+
+  // CLOSE EDIT MODAL
+  function handleCloseEdit() {
+    setSelectedBook(null);
+  }
+
+  // UPDATE
+  function handleEditBook(bookData) {
+    if (!selectedBook) return;
+
+    updateBook(selectedBook.id, bookData);
+    setSelectedBook(null);
+  }
 
   // Filter and Sort Books
   const filteredBooks = books
@@ -78,11 +109,6 @@ export function Library() {
           return new Date(b.addedAt) - new Date(a.addedAt);
       }
     });
-
-  function handleAddBook(bookData) {
-    addBook(bookData);
-    setIsAddModalOpen(false);
-  }
 
   return (
     <div className="layout">
@@ -184,6 +210,7 @@ export function Library() {
 
               return (
                 <div className="book-card" key={book.id}>
+                  {/* Book Cover */}
                   {book.cover ? (
                     <img
                       className="book-cover"
@@ -197,10 +224,12 @@ export function Library() {
                   )}
 
                   <div className="book-info">
+                    {/* Status */}
                     <span className="book-status" data-status={book.status}>
                       {book.status}
                     </span>
 
+                    {/* Book Details */}
                     <h3>{book.title}</h3>
                     <p className="book-author">{book.author}</p>
                     <p className="book-genre">{book.genre}</p>
@@ -227,6 +256,18 @@ export function Library() {
                         <span>{book.rating}/5</span>
                       </div>
                     )}
+
+                    {/* Book Actions */}
+                    <div className="book-actions">
+                      <button
+                        type="button"
+                        className="edit-book-btn"
+                        onClick={() => handleOpenEdit(book)}
+                      >
+                        <Pencil size={15} />
+                        แก้ไข
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
@@ -238,10 +279,25 @@ export function Library() {
             </div>
           )}
         </div>
+
+        {/* Add Book Modal */}
         {isAddModalOpen && (
           <AddBookModal
+            key="add-book"
+            mode="add"
             onClose={() => setIsAddModalOpen(false)}
             onSubmit={handleAddBook}
+          />
+        )}
+
+        {/* Edit Book Modal */}
+        {selectedBook && (
+          <AddBookModal
+            key={selectedBook.id}
+            mode="edit"
+            initialBook={selectedBook}
+            onClose={handleCloseEdit}
+            onSubmit={handleEditBook}
           />
         )}
       </main>
