@@ -3,9 +3,12 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import "./theme.css";
+import { BookProvider } from "./context/BookProvider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <App />
+    <BookProvider>
+      <App />
+    </BookProvider>
   </BrowserRouter>,
 );

@@ -2,7 +2,9 @@ import { Sidebar } from "../components/Sidebar";
 import "./Library.css";
 import { useState } from "react";
 import { Search, LayoutGrid, List, Plus, Star } from "lucide-react";
-import { initialBooks } from "../data/books";
+import { useBooks } from "../context/BookContext";
+import { AddBookModal } from "../components/AddBookModal";
+
 const filters = [
   "ทั้งหมด",
   "กำลังอ่าน",
@@ -23,14 +25,29 @@ const categories = [
   "ประวัติศาสตร์",
   "ปรัชญา",
 ];
-const books = initialBooks;
+
+// คำนวณความคืบหน้าจากหน้าปัจจุบันและจำนวนหน้าทั้งหมด
+function calculateProgress(book) {
+  if (!book.totalPages || book.totalPages <= 0) {
+    return 0;
+  }
+
+  return Math.round((book.currentPage / book.totalPages) * 100);
+}
+
 export function Library() {
+  // รับข้อมูลหนังสือจาก BookContext
+  const { books, addBook } = useBooks();
+
+  // UI States
   const [activeFilter, setActiveFilter] = useState("ทั้งหมด");
   const [searchQuery, setSearchQuery] = useState("");
   const [category, setCategory] = useState("ทุกประเภท");
   const [sortBy, setSortBy] = useState("recentlyAdded");
   const [viewMode, setViewMode] = useState("grid");
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
+  // Filter and Sort Books
   const filteredBooks = books
     .filter((book) => {
       const matchesStatus =
@@ -54,13 +71,18 @@ export function Library() {
           return b.rating - a.rating;
 
         case "highestProgress":
-          return b.progress - a.progress;
+          return calculateProgress(b) - calculateProgress(a);
 
         case "recentlyAdded":
         default:
           return new Date(b.addedAt) - new Date(a.addedAt);
       }
     });
+
+  function handleAddBook(bookData) {
+    addBook(bookData);
+    setIsAddModalOpen(false);
+  }
 
   return (
     <div className="layout">
@@ -74,7 +96,10 @@ export function Library() {
             <p>หนังสือทั้งหมดของคุณ ค้นหา กรอง และเรียงลำดับได้ตามต้องการ</p>
           </div>
 
-          <button className="add-book-btn">
+          <button
+            className="add-book-btn"
+            onClick={() => setIsAddModalOpen(true)}
+          >
             <Plus size={18} />
             เพิ่มหนังสือ
           </button>
@@ -154,49 +179,58 @@ export function Library() {
         {/* Book Container */}
         <div className={`book-container ${viewMode}`}>
           {filteredBooks.length > 0 ? (
-            filteredBooks.map((book) => (
-              <div className="book-card" key={book.id}>
-                <img
-                  className="book-cover"
-                  src={book.cover}
-                  alt={`ปกหนังสือ ${book.title}`}
-                />
+            filteredBooks.map((book) => {
+              const progress = calculateProgress(book);
 
-                <div className="book-info">
-                  <span className="book-status" data-status={book.status}>
-                    {book.status}
-                  </span>
-
-                  <h3>{book.title}</h3>
-                  <p className="book-author">{book.author}</p>
-
-                  <p className="book-genre">{book.genre}</p>
-
-                  {/* Progress */}
-                  <div className="progress-section">
-                    <div className="progress-info">
-                      <span>ความคืบหน้า</span>
-                      <span>{book.progress}%</span>
-                    </div>
-
-                    <div className="progress-track">
-                      <div
-                        className="progress-fill"
-                        style={{ width: `${book.progress}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Rating */}
-                  {book.rating > 0 && (
-                    <div className="book-rating">
-                      <Star size={15} fill="currentColor" />
-                      <span>{book.rating}/5</span>
+              return (
+                <div className="book-card" key={book.id}>
+                  {book.cover ? (
+                    <img
+                      className="book-cover"
+                      src={book.cover}
+                      alt={`ปกหนังสือ ${book.title}`}
+                    />
+                  ) : (
+                    <div className="book-cover book-cover-placeholder">
+                      ไม่มีรูปปก
                     </div>
                   )}
+
+                  <div className="book-info">
+                    <span className="book-status" data-status={book.status}>
+                      {book.status}
+                    </span>
+
+                    <h3>{book.title}</h3>
+                    <p className="book-author">{book.author}</p>
+                    <p className="book-genre">{book.genre}</p>
+
+                    {/* Progress */}
+                    <div className="progress-section">
+                      <div className="progress-info">
+                        <span>ความคืบหน้า</span>
+                        <span>{progress}%</span>
+                      </div>
+
+                      <div className="progress-track">
+                        <div
+                          className="progress-fill"
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Rating */}
+                    {book.rating > 0 && (
+                      <div className="book-rating">
+                        <Star size={15} fill="currentColor" />
+                        <span>{book.rating}/5</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <div className="empty-state">
               <h3>ไม่พบหนังสือ</h3>
@@ -204,6 +238,12 @@ export function Library() {
             </div>
           )}
         </div>
+        {isAddModalOpen && (
+          <AddBookModal
+            onClose={() => setIsAddModalOpen(false)}
+            onSubmit={handleAddBook}
+          />
+        )}
       </main>
     </div>
   );

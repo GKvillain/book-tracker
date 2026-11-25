@@ -887,3 +887,12 @@
     height: 96px;
   }
 }
+
+.book-cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--secondary);
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
